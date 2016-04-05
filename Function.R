@@ -36,5 +36,27 @@ book2.list.result <- lapply(book2.list, function(x) mergeData(x))
 book2_result <- do.call(rbind, book2.list.result)
 row.names(book1_result)<- NULL
 
-Completed_readers2 <- book1_result[which(book1_result$chapter_number==32 & book1_result$highestchapter_number ==32 & book1_result$lowestchapter_number ==1 ),]
+Completed_readers2 <- book2_result[which(book2_result$chapter_number==32 & book2_result$highestchapter_number ==32 & book2_result$lowestchapter_number ==1 ),]
 ## Just 25 readers were able to complete book
+
+
+mean(Completed_readers2$consecutive_session) 
+## 3.357
+
+mean(Completed_readers1$consecutive_session)
+## 19.24
+
+## Doing 2 sample t-test between two consecutive sessions
+t.test(Completed_readers1$consecutive_session, Completed_readers2$consecutive_session)
+
+
+Welch Two Sample t-test
+
+data:  Completed_readers1$consecutive_session and Completed_readers2$consecutive_session
+t = 3.186, df = 24.628, p-value = 0.003891
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+  5.607899 26.157815
+sample estimates:
+  mean of x mean of y 
+19.240000  3.357143 
